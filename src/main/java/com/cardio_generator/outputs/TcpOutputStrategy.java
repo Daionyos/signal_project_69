@@ -6,12 +6,23 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.Executors;
 
+/*
+ * This class implements the OutputStrategy interface 
+ * The class creates a TCP server and will send data to the connected clients, 
+ * the server is able to continuously accept clients while still communicating with the existing ones due to multithreading
+ * 
+ *  @author Tom Pepels 🤘
+*/
 public class TcpOutputStrategy implements OutputStrategy {
 
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private PrintWriter out;
-
+    /*
+     *  Contructor that takes a port number that a socket will listen for clients.
+     * Uses multithreading to continuoly accept clients
+     * @param port  number that the server will listen for 
+    */
     public TcpOutputStrategy(int port) {
         try {
             serverSocket = new ServerSocket(port);
@@ -31,7 +42,13 @@ public class TcpOutputStrategy implements OutputStrategy {
             e.printStackTrace();
         }
     }
-
+    /*
+         * Overrides the interface method and sends messages to connected clients about patient data 
+         * @param patientId identifier for patient 
+         * @param timestamp time stamp in millseconds 
+         * @param label label of the data 
+         * @param radomnly generated patient data 
+    */
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         if (out != null) {
