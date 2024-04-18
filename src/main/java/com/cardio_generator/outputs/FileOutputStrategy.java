@@ -13,7 +13,7 @@ public class FileOutputStrategy implements OutputStrategy {
 
     public final ConcurrentHashMap<String, String> fileMap = new ConcurrentHashMap<>(); // Changed variable name to camelCase
 
-    public FileOutputStrategy(String baseDirectory) {
+    public FileOutputStrategy(String baseDirectory) {  
         this.baseDirectory = baseDirectory; // removed an emtpy line above 
     }
 
