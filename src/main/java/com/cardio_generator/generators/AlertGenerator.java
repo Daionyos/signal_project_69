@@ -7,28 +7,33 @@ import com.cardio_generator.outputs.OutputStrategy;
 public class AlertGenerator implements PatientDataGenerator {
 
     public static final Random randomGenerator = new Random();
-    private boolean[] AlertStates; // false = resolved, true = pressed
+    //AlertStates -> alertStates, variable names should start with lowercase
+    private boolean[] alertStates; // false = resolved, true = pressed
 
     public AlertGenerator(int patientCount) {
-        AlertStates = new boolean[patientCount + 1];
+        alertStates = new boolean[patientCount + 1];
     }
 
     @Override
     public void generate(int patientId, OutputStrategy outputStrategy) {
         try {
-            if (AlertStates[patientId]) {
-                if (randomGenerator.nextDouble() < 0.9) { // 90% chance to resolve
-                    AlertStates[patientId] = false;
+            if (alertStates[patientId]) {
+                // declaring resolveProbability as final because its a fixed number to use in code
+                final double resolveProbability = 0.9;
+                if (randomGenerator.nextDouble() < resolveProbability) { // 90% chance to resolve
+                    alertStates[patientId] = false;
                     // Output the alert
                     outputStrategy.output(patientId, System.currentTimeMillis(), "Alert", "resolved");
                 }
             } else {
-                double Lambda = 0.1; // Average rate (alerts per period), adjust based on desired frequency
-                double p = -Math.expm1(-Lambda); // Probability of at least one alert in the period
+                //Lambda-> lambda variable names should start with lowercase
+                //lambda should be initialized as final if we are using it as a constant
+                final double lambda = 0.1; // Average rate (alerts per period), adjust based on desired frequency
+                double p = -Math.expm1(-lambda); // Probability of at least one alert in the period
                 boolean alertTriggered = randomGenerator.nextDouble() < p;
 
                 if (alertTriggered) {
-                    AlertStates[patientId] = true;
+                    alertStates[patientId] = true;
                     // Output the alert
                     outputStrategy.output(patientId, System.currentTimeMillis(), "Alert", "triggered");
                 }
