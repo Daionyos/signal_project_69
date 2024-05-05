@@ -36,9 +36,7 @@ public class AlertGenerator {
      */
     public void evaluateData(Patient patient) {
         // Implementation goes here
-        // blood pressure: 10mmhg / 3 readings goes up or down 
-        
-
+        // blood pressure: 10mmhg / 3 readings goes up or down
 
         // 
     }
