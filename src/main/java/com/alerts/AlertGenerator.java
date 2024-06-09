@@ -1,7 +1,7 @@
 package com.alerts;
 
-import java.util.List;
-import java.util.ArrayList;
+
+import java.util.*;
 
 import com.data_management.DataStorage;
 import com.data_management.Patient;
@@ -41,14 +41,14 @@ public class AlertGenerator {
     public void evaluateData(Patient patient) {
         List <Alert> alerting = new ArrayList <>();
         // Implementation goes here
-        List <PatientRecord> records = dataStorage.getRecords(patient.getPatientId(), System.currentTimeMillis()-1800000, System.currentTimeMillis());
+        List <PatientRecord> records = dataStorage.getRecords(patient.getPatientId(), 0, System.currentTimeMillis());
         // blood pressure check
         BloodPressureAlert bloodPressure = new BloodPressureAlert();
         alerting.add( bloodPressure.check(records));
         
         //2. Blood Saturation Data Alerts 
         BloodSaturationAlert bloodSaturation = new BloodSaturationAlert();
-        alerting.add( bloodPressure.check(records));
+        alerting.add( bloodSaturation.check(records));
         //3. Combined Alert: Hypotensive Hypoxemia Alert
         CombinedAlert combined = new CombinedAlert();
         alerting.add(combined.check(records));
@@ -76,5 +76,6 @@ public class AlertGenerator {
      */
     private void triggerAlert(Alert alert) {
         // Implementation might involve logging the alert or notifying staff
+        System.out.println("ALERT: " + alert.getCondition() + ", PATIENT ID: " + alert.getPatientId() + ", at time: " + new Date (alert.getTimestamp()));
     }
 }
