@@ -10,6 +10,8 @@ public class ECGDataAlert {
     public Alert check(List<PatientRecord> records){
         List<PatientRecord> ecg = sorting(records, "ECG");
         Alert checking = null;
+        checking = abnormalECG(ecg);
+        return checking;
 
 
     }
@@ -34,10 +36,8 @@ public class ECGDataAlert {
             double average = sum/10;
 
             if(Math.abs(records.get(i).getMeasurementValue() - average) >=0.5){
-                return new Alert(null, null, i);
+                return new Alert(Integer.toString(records.get(i).getPatientId()), null, records.get(i).getTimestamp());
             }
-
-
 
         }
         return null;
