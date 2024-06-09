@@ -9,18 +9,8 @@ public class BloodPressureAlert {
     public BloodPressureAlert(){
     }
     public Alert check(List <PatientRecord> records){
-        List <PatientRecord> bloodRecordsSystolic = new ArrayList<>();
-        List <PatientRecord> bloodRecordsDiastolic = new ArrayList<>();
-
-        for(int i = 0; i < records.size(); i++){
-            if(records.get(i).getRecordType().equals("DiastolicPressure")){
-                bloodRecordsDiastolic.add(records.get(i));
-            }
-            else if(records.get(i).getRecordType().equals("SystolicPressure")){
-                bloodRecordsSystolic.add(records.get(i));
-            }
-            else{continue;}
-        }
+        List <PatientRecord> bloodRecordsSystolic = sorting(records, "DiastolicPressure");
+        List <PatientRecord> bloodRecordsDiastolic = sorting(records, "SystolicPressure");
         Alert checking = trend(bloodRecordsDiastolic);
         if(checking != null){
             return checking;
@@ -39,6 +29,17 @@ public class BloodPressureAlert {
         }
         return null;
     }
+    public List <PatientRecord> sorting(List <PatientRecord> records, String parameter){
+        List <PatientRecord> list = new ArrayList<>();
+        for(int i = 0; i < records.size(); i++){
+            if(records.get(i).getRecordType().equals(parameter)){
+                list.add(records.get(i));
+            }
+        }
+        return list;
+
+    }
+
     private Alert trend(List <PatientRecord> records){
         Alert trending = null;
         for(int i = 2; i < records.size(); i++){

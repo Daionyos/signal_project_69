@@ -42,10 +42,13 @@ public class AlertGenerator {
         // Implementation goes here
         List <PatientRecord> records = dataStorage.getRecords(patient.getPatientId(), System.currentTimeMillis()-1800000, System.currentTimeMillis());
         // blood pressure check
-        BloodPressureAlert BloodPressure = new BloodPressureAlert();
-        alerting = BloodPressure.check(records);
+        BloodPressureAlert bloodPressure = new BloodPressureAlert();
+        alerting = bloodPressure.check(records);
         if (alerting != null){triggerAlert(alerting);}
         //2. Blood Saturation Data Alerts 
+        BloodSaturationAlert bloodSaturation = new BloodSaturationAlert();
+        alerting = bloodPressure.check(records);
+        //3. Combined Alert: Hypotensive Hypoxemia Alert
         
 
 

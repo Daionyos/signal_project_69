@@ -10,12 +10,7 @@ public class BloodSaturationAlert {
 
     public Alert check(List <PatientRecord> records){
         Alert checking = null;
-        List <PatientRecord> saturation = new ArrayList<>();
-        for(int i = 0; i < records.size(); i++){
-            if(records.get(i).getRecordType().equals("Saturation")){
-                saturation.add(records.get(i));
-            }
-        }
+        List <PatientRecord> saturation = sorting(records, "Saturation" );
         checking = lowSaturation(saturation);
         if(checking != null){
             return checking;
@@ -26,7 +21,17 @@ public class BloodSaturationAlert {
         }
         return checking;
     }
-    private Alert lowSaturation(List <PatientRecord> records){
+    public List <PatientRecord> sorting(List <PatientRecord> records, String parameter){
+        List <PatientRecord> list = new ArrayList<>();
+        for(int i = 0; i < records.size(); i++){
+            if(records.get(i).getRecordType().equals(parameter)){
+                list.add(records.get(i));
+            }
+        }
+        return list;
+
+    }
+    public Alert lowSaturation(List <PatientRecord> records){
         
         for(int i = 0; i < records.size(); i++){
             if(records.get(i).getMeasurementValue() < 92.0){
@@ -35,7 +40,7 @@ public class BloodSaturationAlert {
         }
         return null;
     }
-    private Alert rapidDrop(List <PatientRecord> records){
+    public Alert rapidDrop(List <PatientRecord> records){
         for(int i = 0; i < records.size();i++){
             for(int j = i; j > 0; j--){
                 if(records.get(i).getTimestamp() - records.get(j).getTimestamp() >60000){break;}
