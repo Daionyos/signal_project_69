@@ -55,15 +55,16 @@ public class Patient {
      *         range
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
-        List<PatientRecord> list = patientRecords; list.clear();
-        for(int i = 0; i < patientRecords.size(); i++){
-            if(patientRecords.get(i).getTimestamp() > endTime){
-                return list; 
+        List<PatientRecord> filteredRecords = new ArrayList<>();
+        for (PatientRecord record : patientRecords) {
+            if (record.getTimestamp() > endTime) {
+                break; // Stop searching if the record is beyond the end time
             }
-            if(patientRecords.get(i).getTimestamp() >= startTime){
-                list.add(patientRecords.get(i));
+            if (record.getTimestamp() >= startTime) {
+                filteredRecords.add(record);
             }
         }
-        return list;
+        return filteredRecords;
     }
+
 }
