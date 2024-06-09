@@ -1,6 +1,7 @@
 package com.alerts;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import com.data_management.DataStorage;
 import com.data_management.Patient;
@@ -38,26 +39,30 @@ public class AlertGenerator {
      * @param patient the patient data to evaluate for alert conditions
      */
     public void evaluateData(Patient patient) {
-        Alert alerting = null;
+        List <Alert> alerting = new ArrayList <>();
         // Implementation goes here
         List <PatientRecord> records = dataStorage.getRecords(patient.getPatientId(), System.currentTimeMillis()-1800000, System.currentTimeMillis());
         // blood pressure check
         BloodPressureAlert bloodPressure = new BloodPressureAlert();
-        alerting = bloodPressure.check(records);
-        if (alerting != null){triggerAlert(alerting);}
+        alerting.add( bloodPressure.check(records));
+        
         //2. Blood Saturation Data Alerts 
         BloodSaturationAlert bloodSaturation = new BloodSaturationAlert();
-        alerting = bloodPressure.check(records);
+        alerting.add( bloodPressure.check(records));
         //3. Combined Alert: Hypotensive Hypoxemia Alert
-        
-
-
-        
-
-        
-
-        
-
+        CombinedAlert combined = new CombinedAlert();
+        alerting.add(combined.check(records));
+        //4. ECG 
+        ECGDataAlert ecgalerts = new ECGDataAlert();
+        alerting.add(ecgalerts.check(records));
+        // 5. triggered alerts
+        TriggeredAlert trigger = new TriggeredAlert();
+        alerting.add(trigger.check(records));
+        for(int i = 0 ; i < alerting.size(); i++){
+            if(alerting.get(i) != null){
+                triggerAlert(alerting.get(i));
+            }
+        }
         // 
     }
 
