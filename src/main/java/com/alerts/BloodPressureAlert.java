@@ -6,14 +6,8 @@ import java.util.List;
 import com.data_management.PatientRecord;
 
 public class BloodPressureAlert {
-
     public BloodPressureAlert(){
     }
-    /**
-      Checks the patient records for any blood pressure alerts.
-      @param records list of patientRecords  to check.
-      @return An alert if any condition is met, otherwise returns null.
-     */
     public Alert check(List <PatientRecord> records){
         List <PatientRecord> bloodRecordsSystolic = sorting(records, "DiastolicPressure");
         List <PatientRecord> bloodRecordsDiastolic = sorting(records, "SystolicPressure");
@@ -35,12 +29,6 @@ public class BloodPressureAlert {
         }
         return null;
     }
-    /**
-     Filters the patientRecords by the given parameter.
-     @param records List of PatientRecord objects.
-     @param parameter The parameter to filter by.
-     @return A list of PatientRecord objects that are filtered.
-     */
     public List <PatientRecord> sorting(List <PatientRecord> records, String parameter){
         List <PatientRecord> list = new ArrayList<>();
         for(int i = 0; i < records.size(); i++){
@@ -51,11 +39,7 @@ public class BloodPressureAlert {
         return list;
 
     }
-    /**
-     Checks for a trend in the patient records, returns an alert if a trend is found.
-     @param records List of PatientRecord objects to check.
-     @return Alert if a trend is found, otherwise null.
-     */
+
     private Alert trend(List <PatientRecord> records){
         Alert trending = null;
         for(int i = 2; i < records.size(); i++){
@@ -72,11 +56,6 @@ public class BloodPressureAlert {
         }
         return trending;
     }
-    /**
-     Checks systolic blood pressure records of each patient against predefined thresholds.
-     @param records List of PatientRecord objects to check.
-     @return Alert if any systolic pressure is it goes over the limit, otherwise null.
-     */
     private Alert systolicCheck(List <PatientRecord> records){
         for(int i = 0; i < records.size(); i++){
             if(records.get(i).getMeasurementValue() < 90.0 || records.get(i).getMeasurementValue() > 180.0){
@@ -85,11 +64,6 @@ public class BloodPressureAlert {
         }
         return null;
     }
-    /**
-     Checks diastolic blood pressure records of each patient against predefined thresholds.
-     @param records List of PatientRecord objects to check.
-     @return Alert if any diastolic pressure is it goes over the limit, otherwise null.
-     */
     private Alert diastolicCheck(List <PatientRecord> records){
         for(int i = 0; i < records.size(); i++){
             if(records.get(i).getMeasurementValue() < 60.0 || records.get(i).getMeasurementValue() > 120.0){
