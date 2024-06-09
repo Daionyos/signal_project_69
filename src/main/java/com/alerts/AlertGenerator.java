@@ -1,7 +1,10 @@
 package com.alerts;
 
+import java.util.List;
+
 import com.data_management.DataStorage;
 import com.data_management.Patient;
+import com.data_management.PatientRecord;
 
 /**
  * The {@code AlertGenerator} class is responsible for monitoring patient data
@@ -36,7 +39,16 @@ public class AlertGenerator {
      */
     public void evaluateData(Patient patient) {
         // Implementation goes here
+        List <PatientRecord> records = dataStorage.getRecords(patient.getPatientId(), System.currentTimeMillis()-1800000, System.currentTimeMillis());
         // blood pressure: 10mmhg / 3 readings goes up or down
+        //systolic or diastolic
+        
+        //2. Blood Saturation Data Alerts 
+        
+
+        
+
+        
 
         // 
     }

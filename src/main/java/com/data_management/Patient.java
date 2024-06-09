@@ -23,6 +23,9 @@ public class Patient {
         this.patientId = patientId;
         this.patientRecords = new ArrayList<>();
     }
+    public int getPatientId(){
+        return patientId;
+    }
 
     /**
      * Adds a new record to this patient's list of medical records.
@@ -52,7 +55,6 @@ public class Patient {
      *         range
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
-        // TODO Implement and test this method
         List<PatientRecord> list = patientRecords; list.clear();
         for(int i = 0; i < patientRecords.size(); i++){
             if(patientRecords.get(i).getTimestamp() > endTime){
