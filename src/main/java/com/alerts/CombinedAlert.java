@@ -57,8 +57,10 @@ public class CombinedAlert {
                 satAlerts.add(sat.get(i));
             }
         }
+        // Compare timestamps of systolic pressure and saturation alerts
         for(int i = 0; i < sysAlerts.size(); i++){
             for(int j = 0; j < satAlerts.size(); j++){
+                // If the time difference between alerts is greater than or equal to 120 seconds create a combined alert
                 if(Math.abs(sysAlerts.get(i).getTimestamp() - satAlerts.get(j).getTimestamp()) >= 120000){
                     return new Alert(Integer.toString(sysAlerts.get(i).getPatientId()), "Combined Alert: Hypotensive Hypoxemia Alert", sysAlerts.get(i).getTimestamp());
                 }
