@@ -58,7 +58,7 @@ public class BloodPressureAlert {
     private Alert systolicCheck(List <PatientRecord> records){
         for(int i = 0; i < records.size(); i++){
             if(records.get(i).getMeasurementValue() < 90.0 || records.get(i).getMeasurementValue() > 180.0){
-                return new Alert(Integer.toString(records.get(i).getPatientId()), "Systolic Pressure Alert", records.get(i).getTimestamp());
+                return new Alert(Integer.toString(records.get(i).getPatientId()), "Critical Threshold Alert: Systolic Pressure Alert", records.get(i).getTimestamp());
             }
         }
         return null;
@@ -66,7 +66,7 @@ public class BloodPressureAlert {
     private Alert diastolicCheck(List <PatientRecord> records){
         for(int i = 0; i < records.size(); i++){
             if(records.get(i).getMeasurementValue() < 60.0 || records.get(i).getMeasurementValue() > 120.0){
-                return new Alert(Integer.toString(records.get(i).getPatientId()), "Systolic Pressure Alert", records.get(i).getTimestamp());
+                return new Alert(Integer.toString(records.get(i).getPatientId()), "Critical Threshold Alert: Dialostic Pressure Alert", records.get(i).getTimestamp());
             }
         }
         return null;

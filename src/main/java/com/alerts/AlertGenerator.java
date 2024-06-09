@@ -38,12 +38,17 @@ public class AlertGenerator {
      * @param patient the patient data to evaluate for alert conditions
      */
     public void evaluateData(Patient patient) {
+        Alert alerting = null;
         // Implementation goes here
         List <PatientRecord> records = dataStorage.getRecords(patient.getPatientId(), System.currentTimeMillis()-1800000, System.currentTimeMillis());
-        // blood pressure: 10mmhg / 3 readings goes up or down
-        //systolic or diastolic
-        
+        // blood pressure check
+        BloodPressureAlert BloodPressure = new BloodPressureAlert();
+        alerting = BloodPressure.check(records);
+        if (alerting != null){triggerAlert(alerting);}
         //2. Blood Saturation Data Alerts 
+        
+
+
         
 
         
