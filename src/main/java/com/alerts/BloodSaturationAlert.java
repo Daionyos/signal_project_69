@@ -43,7 +43,7 @@ public class BloodSaturationAlert {
     public Alert rapidDrop(List <PatientRecord> records){
         for(int i = 0; i < records.size();i++){
             for(int j = i; j > 0; j--){
-                if(records.get(i).getTimestamp() - records.get(j).getTimestamp() >60000){break;}
+                if(records.get(i).getTimestamp() - records.get(j).getTimestamp() >600000){break;}
                 if(records.get(j).getMeasurementValue() - records.get(i).getMeasurementValue() >= 5){
                     return new Alert(Integer.toString(records.get(i).getPatientId()), "Rapid Drop Alert: Saturation", records.get(i).getTimestamp());
                 }
