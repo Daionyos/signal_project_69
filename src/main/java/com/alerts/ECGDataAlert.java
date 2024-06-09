@@ -12,8 +12,6 @@ public class ECGDataAlert {
         Alert checking = null;
         checking = abnormalECG(ecg);
         return checking;
-
-
     }
     public List <PatientRecord> sorting(List <PatientRecord> records, String parameter){
         List <PatientRecord> list = new ArrayList<>();
