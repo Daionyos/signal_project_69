@@ -19,12 +19,8 @@ public class ECGDataAlert {
         List<PatientRecord> ecg = sorting(records, "ECG");
         // Initialize checking variable to null
         Alert checking = null;
-<<<<<<< HEAD
         checking = abnormalECG(ecg);
-=======
-        // TODO: Add logic to analyze ECG data
-        // (Implementation of ECG analysis logic is missing)
->>>>>>> 33cb7af9b739cbcca804f3dbdca54067809cee15
+
         return checking;
     }
 
@@ -61,20 +57,11 @@ public class ECGDataAlert {
             }
             // Calculate the average of the last 10 ECG values
             double average = sum / 10;
-
-<<<<<<< HEAD
+             // Check if the absolute difference between the current ECG value
+            // and the average of the last 10 values is greater than or equal to 0.5
             if(Math.abs(records.get(i).getMeasurementValue() - average) >=0.5){
                 return new Alert(Integer.toString(records.get(i).getPatientId()), null, records.get(i).getTimestamp());
             }
-
-=======
-            // Check if the absolute difference between the current ECG value
-            // and the average of the last 10 values is greater than or equal to 0.5
-            if(Math.abs(records.get(i).getMeasurementValue() - average) >= 0.5){
-                // Return an Alert object indicating abnormal ECG data
-                return new Alert(null, null, i);
-            }
->>>>>>> 33cb7af9b739cbcca804f3dbdca54067809cee15
         }
         // Return null if no abnormality is detected
         return null;
